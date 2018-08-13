@@ -24,15 +24,27 @@ var Comment = Backbone.Model.extend({
   /* The argument passed to `initialize` is what the model is instantiated with:
    * in `new Comment(message)`, message will be passed to `initialize`. */
   initialize: function(message) {
+    this.set('votes', 0);
+    this.set('message', message)
     /* Set the initial values for `votes` to 0 and `message` to the message.
      * Remember to use setters when working with attributes! */
   },
   votes: function() {
+    var stuff = this.get('votes');
+    console.log(stuff, 'heres vetosss')
+    return stuff;
     /* Return the votes attribute on this model.
      * Remember to use a getter when working with attributes! */
   },
   upvote: function(){
+    var newVotes = this.get('votes');
+    this.set('votes', newVotes+1);
     // Set the `votes` attribute to the current vote count plus one.
+  },
+  downvote: function(){
+    var newerVotes = this.get('votes');
+    newerVotes = newerVotes - 1;
+    this.set('votes', newerVotes);
   }
   // Add a downvote function; don't forget the comma above.
 });
@@ -137,7 +149,7 @@ var commentView = new CommentView({ model: comment });
  */
 
 // Append the view to the page. This is why we returned html from `render`:
-// $('body').append(commentView.render());
+ $('body').append(commentView.render());
 
 /* The number of votes should be 0.
  * We set that as the initial default value in the comment model.
@@ -150,13 +162,14 @@ var commentView = new CommentView({ model: comment });
 /* play with this in your console as well.
  * You can modify the comment object in the same way we just did:
  * ```
- * comment.upvote();
+ comment.upvote();
  * comment.downvote();
  * ```
  *
  * Try voting up and voting down a couple of times and
  * watch the eventlistener auto update the view.  Pretty cool, eh?
  */
+ comment.upvote();
     </script>
   </body>
 </html>
